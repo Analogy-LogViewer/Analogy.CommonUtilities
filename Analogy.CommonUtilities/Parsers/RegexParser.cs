@@ -16,6 +16,7 @@ namespace Analogy.CommonUtilities.Parsers
         private RegexPattern _lastUsedPattern;
         private readonly List<AnalogyLogMessage> _messages = new List<AnalogyLogMessage>();
         private readonly List<RegexPattern> _logPatterns;
+        private readonly bool updateUIAfterEachParsedLine;
         private IAnalogyLogger Logger { get; }
         private IEnumerable<RegexPattern> LogPatterns
         {
@@ -34,50 +35,29 @@ namespace Analogy.CommonUtilities.Parsers
             }
         }
 
-        public IEnumerable<string> RegexMembers { get; }
+        public static IEnumerable<string> RegexMembers { get; }
+        private static Dictionary<string, AnalogyLogMessagePropertyName> regexMapper;
 
-        public RegexParser(List<RegexPattern> logPatterns, IAnalogyLogger logger)
+        static RegexParser()
+        {
+            var names = Enum.GetNames(typeof(AnalogyLogMessagePropertyName));
+            RegexMembers = names;
+            regexMapper = new Dictionary<string, AnalogyLogMessagePropertyName>(names.Length);
+            foreach (var name in names)
+            {
+                var enumValue = (AnalogyLogMessagePropertyName)Enum.Parse(typeof(AnalogyLogMessagePropertyName), name);
+                regexMapper.Add(name, enumValue);
+            }
+        }
+        public RegexParser(List<RegexPattern> logPatterns, bool updateUIAfterEachLine, IAnalogyLogger logger)
         {
             _logPatterns = logPatterns;
             Logger = logger;
-            RegexMembers = new List<string>
-            {
-                "Date", "ID", "Text", "Category", "Source", "MethodName", "FileName", "LineNumber", "Class", "Level",
-                "Module", "ProcessID", "Thread"
-            };
-        }
+            updateUIAfterEachParsedLine = updateUIAfterEachLine;
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="line"></param>
-        public void ParseLine(string line)
-        {
-            var entry = ParseEntry(line);
-            if (entry != null)
-            {
-                _current = entry;
-                _messages.Add(_current);
-            }
-            else
-            {
-                if (_current == null)
-                {
-                    _current = new AnalogyLogMessage { Text = line };
-                }
-                else
-                {
-                    _current.Text += Environment.NewLine + line;
-                }
-            }
         }
 
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="line"></param>
-        /// <returns></returns>
         private AnalogyLogMessage ParseEntry(string line)
         {
 
@@ -99,53 +79,122 @@ namespace Analogy.CommonUtilities.Parsers
                     RegexOptions.Compiled | RegexOptions.IgnorePatternWhitespace);
                 if (match.Success)
                 {
-                    string thread = null;
-                    if (match.Groups["thread"].Success)
+                    var m = new AnalogyLogMessage();
+                    foreach (var regexMember in regexMapper)
                     {
-                        thread = match.Groups["thread"].Value;
-                    }
+                        string value = match.Groups[regexMember.Key].Success
+                            ? match.Groups[regexMember.Key].Value
+                            : string.Empty;
+                        switch (regexMember.Value)
+                        {
+                            case AnalogyLogMessagePropertyName.Date:
+                                if (!string.IsNullOrEmpty(value) &&
+                                    DateTime.TryParseExact(value, regex.DateTimeFormat, CultureInfo.InvariantCulture,
+                                        DateTimeStyles.None, out var date))
+                                {
+                                    m.Date = date;
+                                }
 
-                    string process = null;
-                    if (match.Groups["process"].Success)
-                    {
-                        process = match.Groups["process"].Value;
-                    }
+                                break;
+                            case AnalogyLogMessagePropertyName.ID:
+                                if (!string.IsNullOrEmpty(value) &&
+                                    Guid.TryParseExact(value, regex.GuidFormat, out var guidValue))
+                                {
+                                    m.ID = guidValue;
+                                }
 
-                    var m = new AnalogyLogMessage()
-                    {
-                        Date = DateTime.ParseExact(match.Groups["date"].Value, regex.DateTimeFormat,
-                            CultureInfo.InvariantCulture),
-                        Thread = thread != null ? int.Parse(thread) : 0,
-                        ProcessID = process != null ? int.Parse(process) : 0,
-                        Source = match.Groups["logger"].Value,
-                        Text = match.Groups["message"].Value
-                    };
-                    switch (match.Groups["level"].Value)
-                    {
-                        case "OFF":
-                            m.Level = AnalogyLogLevel.Disabled;
-                            break;
-                        case "TRACE":
-                            m.Level = AnalogyLogLevel.Trace;
-                            break;
-                        case "DEBUG":
-                            m.Level = AnalogyLogLevel.Debug;
-                            break;
-                        case "INFO":
-                            m.Level = AnalogyLogLevel.Event;
-                            break;
-                        case "WARN":
-                            m.Level = AnalogyLogLevel.Warning;
-                            break;
-                        case "ERROR":
-                            m.Level = AnalogyLogLevel.Error;
-                            break;
-                        case "FATAL":
-                            m.Level = AnalogyLogLevel.Critical;
-                            break;
-                        default:
-                            m.Level = AnalogyLogLevel.Unknown;
-                            break;
+                                break;
+                            case AnalogyLogMessagePropertyName.Text:
+                                m.Text = value;
+                                break;
+                            case AnalogyLogMessagePropertyName.Category:
+                                m.Category = value;
+                                break;
+                            case AnalogyLogMessagePropertyName.Source:
+                                m.Source = value;
+                                break;
+                            case AnalogyLogMessagePropertyName.Module:
+                                m.Module = value;
+                                break;
+                            case AnalogyLogMessagePropertyName.MethodName:
+                                m.MethodName = value;
+                                break;
+                            case AnalogyLogMessagePropertyName.FileName:
+                                m.FileName = value;
+                                break;
+                            case AnalogyLogMessagePropertyName.User:
+                                m.User = value;
+                                break;
+                            case AnalogyLogMessagePropertyName.LineNumber:
+                                if (!string.IsNullOrEmpty(value) &&
+                                    int.TryParse(value, out var lineNum))
+                                {
+                                    m.LineNumber = lineNum;
+                                }
+
+                                break;
+                            case AnalogyLogMessagePropertyName.ProcessID:
+                                if (!string.IsNullOrEmpty(value) &&
+                                    int.TryParse(value, out var processNum))
+                                {
+                                    m.ProcessID = processNum;
+                                }
+
+                                break;
+                            case AnalogyLogMessagePropertyName.Thread:
+                                if (!string.IsNullOrEmpty(value) &&
+                                    int.TryParse(value, out var threadNum))
+                                {
+                                    m.Thread = threadNum;
+                                }
+
+                                break;
+                            case AnalogyLogMessagePropertyName.Level:
+                                switch (value)
+                                {
+                                    case "OFF":
+                                        m.Level = AnalogyLogLevel.Disabled;
+                                        break;
+                                    case "TRACE":
+                                        m.Level = AnalogyLogLevel.Trace;
+                                        break;
+                                    case "DEBUG":
+                                        m.Level = AnalogyLogLevel.Debug;
+                                        break;
+                                    case "INFO":
+                                        m.Level = AnalogyLogLevel.Event;
+                                        break;
+                                    case "WARN":
+                                        m.Level = AnalogyLogLevel.Warning;
+                                        break;
+                                    case "ERROR":
+                                        m.Level = AnalogyLogLevel.Error;
+                                        break;
+                                    case "FATAL":
+                                        m.Level = AnalogyLogLevel.Critical;
+                                        break;
+                                    default:
+                                        m.Level = AnalogyLogLevel.Unknown;
+                                        break;
+                                }
+
+                                break;
+                            case AnalogyLogMessagePropertyName.Class:
+                                if (string.IsNullOrEmpty(value))
+                                    m.Class = AnalogyLogClass.General;
+                                else
+                                {
+                                    m.Class = Enum.TryParse(value, true, out AnalogyLogClass cls) &&
+                                              Enum.IsDefined(typeof(AnalogyLogClass), cls)
+                                        ? cls
+                                        : AnalogyLogClass.General;
+
+                                }
+
+                                break;
+                            default:
+                                throw new ArgumentOutOfRangeException();
+                        }
                     }
 
                     message = m;
@@ -157,9 +206,10 @@ namespace Analogy.CommonUtilities.Parsers
             }
             catch (Exception e)
             {
-                string error = $"Error parsing line; {e.Message}";
+                string error = $"Error parsing line: {e.Message}";
                 Logger.LogException(e, nameof(RegexParser), error);
-                message = new AnalogyLogMessage(error, AnalogyLogLevel.Error, AnalogyLogClass.General, nameof(RegexParser));
+                message = new AnalogyLogMessage(error, AnalogyLogLevel.Error, AnalogyLogClass.General,
+                    nameof(RegexParser));
                 return false;
             }
         }
@@ -171,7 +221,25 @@ namespace Analogy.CommonUtilities.Parsers
                 string line;
                 while ((line = await reader.ReadLineAsync()) != null)
                 {
-                    ParseLine(line);
+                    var entry = ParseEntry(line);
+                    if (entry != null)
+                    {
+                        if (updateUIAfterEachParsedLine)
+                            messagesHandler.AppendMessage(_current, fileName);
+                        _current = entry;
+                        _messages.Add(_current);
+                    }
+                    else
+                    {
+                        if (_current == null)
+                        {
+                            _current = new AnalogyLogMessage { Text = line };
+                        }
+                        else
+                        {
+                            _current.Text += Environment.NewLine + line;
+                        }
+                    }
                     if (token.IsCancellationRequested)
                     {
                         messagesHandler.AppendMessages(_messages, fileName);
@@ -179,7 +247,8 @@ namespace Analogy.CommonUtilities.Parsers
                     }
                 }
             }
-            messagesHandler.AppendMessages(_messages, fileName);
+            if (!updateUIAfterEachParsedLine)//update only at the end
+                messagesHandler.AppendMessages(_messages, fileName);
             return _messages;
         }
 
