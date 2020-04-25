@@ -57,19 +57,7 @@ namespace Analogy.CommonUtilities.Parsers
 
         }
 
-        [MethodImpl(MethodImplOptions.AggressiveInlining)]
-        private AnalogyLogMessage ParseEntry(string line)
-        {
 
-            foreach (var logPattern in LogPatterns)
-            {
-                var result = TryParse(line, logPattern, out AnalogyLogMessage message);
-                if (result)
-                    return message;
-
-            }
-            return null;
-        }
         [MethodImpl(MethodImplOptions.AggressiveInlining)]
         public bool TryParse(string line, RegexPattern regex, out AnalogyLogMessage message)
         {
@@ -221,7 +209,15 @@ namespace Analogy.CommonUtilities.Parsers
                 string line;
                 while ((line = await reader.ReadLineAsync()) != null)
                 {
-                    var entry = ParseEntry(line);
+                    AnalogyLogMessage entry = null;
+                    foreach (var logPattern in LogPatterns)
+                    {
+                        if (TryParse(line, logPattern, out entry))
+                        {
+                            break;
+                        }
+                    }
+
                     if (entry != null)
                     {
                         if (updateUIAfterEachParsedLine)
