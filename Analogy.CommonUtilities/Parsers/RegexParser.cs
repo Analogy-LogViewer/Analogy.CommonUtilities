@@ -86,13 +86,16 @@ namespace Analogy.CommonUtilities.Parsers
                                 }
 
                                 continue;
-                            case AnalogyLogMessagePropertyName.ID:
+                            case AnalogyLogMessagePropertyName.Id:
                                 if (!string.IsNullOrEmpty(value) &&
                                     Guid.TryParseExact(value, regex.GuidFormat, out var guidValue))
                                 {
-                                    m.ID = guidValue;
+                                    m.Id = guidValue;
                                 }
 
+                                continue;
+                            case AnalogyLogMessagePropertyName.MachineName:
+                                m.MachineName = value;
                                 continue;
                             case AnalogyLogMessagePropertyName.Text:
                                 m.Text = value;
@@ -123,19 +126,19 @@ namespace Analogy.CommonUtilities.Parsers
                                 }
 
                                 continue;
-                            case AnalogyLogMessagePropertyName.ProcessID:
+                            case AnalogyLogMessagePropertyName.ProcessId:
                                 if (!string.IsNullOrEmpty(value) &&
                                     int.TryParse(value, out var processNum))
                                 {
-                                    m.ProcessID = processNum;
+                                    m.ProcessId = processNum;
                                 }
 
                                 continue;
-                            case AnalogyLogMessagePropertyName.Thread:
+                            case AnalogyLogMessagePropertyName.ThreadId:
                                 if (!string.IsNullOrEmpty(value) &&
                                     int.TryParse(value, out var threadNum))
                                 {
-                                    m.Thread = threadNum;
+                                    m.ThreadId = threadNum;
                                 }
 
                                 continue;
@@ -230,16 +233,19 @@ namespace Analogy.CommonUtilities.Parsers
                                 }
 
                                 break;
-                            case AnalogyLogMessagePropertyName.ID:
+                            case AnalogyLogMessagePropertyName.Id:
                                 if (!string.IsNullOrEmpty(value) &&
                                     Guid.TryParseExact(value, regex.GuidFormat, out var guidValue))
                                 {
-                                    m.ID = guidValue;
+                                    m.Id = guidValue;
                                 }
 
                                 break;
                             case AnalogyLogMessagePropertyName.Text:
                                 m.Text = value;
+                                break;
+                            case AnalogyLogMessagePropertyName.MachineName:
+                                m.MachineName = value;
                                 break;
                             case AnalogyLogMessagePropertyName.Category:
                                 m.Category = value;
@@ -267,19 +273,19 @@ namespace Analogy.CommonUtilities.Parsers
                                 }
 
                                 break;
-                            case AnalogyLogMessagePropertyName.ProcessID:
+                            case AnalogyLogMessagePropertyName.ProcessId:
                                 if (!string.IsNullOrEmpty(value) &&
                                     int.TryParse(value, out var processNum))
                                 {
-                                    m.ProcessID = processNum;
+                                    m.ProcessId = processNum;
                                 }
 
                                 break;
-                            case AnalogyLogMessagePropertyName.Thread:
+                            case AnalogyLogMessagePropertyName.ThreadId:
                                 if (!string.IsNullOrEmpty(value) &&
                                     int.TryParse(value, out var threadNum))
                                 {
-                                    m.Thread = threadNum;
+                                    m.ThreadId = threadNum;
                                 }
 
                                 break;
