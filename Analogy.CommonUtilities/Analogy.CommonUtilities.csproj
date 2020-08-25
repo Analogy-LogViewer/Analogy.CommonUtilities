@@ -5,6 +5,9 @@
     <TargetFrameworks>net471;net472;netcoreapp3.1</TargetFrameworks>
     <UseWindowsForms>true</UseWindowsForms>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PublishRepositoryUrl>true</PublishRepositoryUrl>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
     <Authors>Lior Banai</Authors>
     <Company>Analogy.LogViewer</Company>
     <Copyright>Lior Banai © 2020</Copyright>
