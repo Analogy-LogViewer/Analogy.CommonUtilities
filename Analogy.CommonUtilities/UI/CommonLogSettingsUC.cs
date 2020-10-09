@@ -1,11 +1,11 @@
-﻿using System;
+﻿using Analogy.Interfaces;
+using Analogy.Interfaces.DataTypes;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
-using Analogy.Interfaces;
-using Analogy.Interfaces.DataTypes;
-using Newtonsoft.Json;
 
 namespace Analogy.CommonUtilities.UI
 {
@@ -17,6 +17,7 @@ namespace Analogy.CommonUtilities.UI
         {
             InitializeComponent();
             Properties = new AnalogyPropertiesMatcherUC();
+            ParserSettings = new LogParserSettings();
         }
 
         public CommonLogSettingsUC(ILogParserSettings parserSettings)

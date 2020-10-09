@@ -1,7 +1,8 @@
-﻿using System;
+﻿using Analogy.Interfaces;
+using Analogy.Interfaces.DataTypes;
+using System;
 using System.Linq;
 using System.Windows.Forms;
-using Analogy.Interfaces;
 
 namespace Analogy.CommonUtilities.UI
 {
@@ -12,6 +13,7 @@ namespace Analogy.CommonUtilities.UI
         public AnalogyPropertiesMatcherUC()
         {
             InitializeComponent();
+            ParserSettings = new LogParserSettings();
         }
 
         public AnalogyPropertiesMatcherUC(ILogParserSettings parserSettings) : this()
@@ -28,7 +30,7 @@ namespace Analogy.CommonUtilities.UI
 
         }
 
-        private void cbLogProperties_SelectedIndexChanged(object sender, EventArgs e)
+        private void cbLogProperties_SelectedIndexChanged(object? sender, EventArgs e)
         {
             Selection = (AnalogyLogMessagePropertyName)cbLogProperties.SelectedItem;
             lblInfo.Text = $"Log files keys/properties to map to {Selection}:";
@@ -63,7 +65,7 @@ namespace Analogy.CommonUtilities.UI
         {
             if (lstbMappedKeys.SelectedItem != null)
             {
-                ParserSettings.DeleteMap(Selection, lstbMappedKeys.SelectedItem as string);
+                ParserSettings.DeleteMap(Selection, (string)lstbMappedKeys.SelectedItem);
                 UpdateMappings();
             }
         }
