@@ -11,12 +11,12 @@
     <img src="https://img.shields.io/github/license/Analogy-LogViewer/Analogy.CommonUtilities"  alt="License" />
 </a>
  [![Nuget](https://img.shields.io/nuget/v/Analogy.CommonUtilities)](https://www.nuget.org/packages/Analogy.CommonUtilities/)
-<a href="https://github.com/Analogy-LogViewer/Analogy.CommonUtilities/releases">
+<!---<a href="https://github.com/Analogy-LogViewer/Analogy.CommonUtilities/releases">
     <img src="https://img.shields.io/github/v/release/Analogy-LogViewer/Analogy.CommonUtilities" alt="Latest Release" />
 </a>
 <a href="https://github.com/Analogy-LogViewer/Analogy.CommonUtilities/compare/V1.0.0...master">
     <img src="https://img.shields.io/github/commits-since/Analogy-LogViewer/Analogy.CommonUtilities/latest"  alt="Commits Since Latest Release"/>
-</a>
+</a>-->
 </p>
 
 
