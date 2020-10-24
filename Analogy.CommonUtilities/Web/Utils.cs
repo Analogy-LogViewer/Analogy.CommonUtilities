@@ -42,6 +42,5 @@ namespace Analogy.CommonUtilities.Web
                 return (false, default)!;
             }
         }
-
     }
 }
