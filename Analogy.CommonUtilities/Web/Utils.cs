@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Runtime.Versioning;
 using System.Text;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
@@ -82,6 +83,33 @@ namespace Analogy.CommonUtilities.Web
             }
 
         }
+        public static GithubObjects.GithubAsset? GetMatchingAsset(GithubObjects.GithubReleaseEntry githubRelease, TargetFrameworkAttribute frameworkAttribute)
+        {
+            GithubObjects.GithubAsset? asset = null;
+            if (frameworkAttribute.FrameworkName.EndsWith("4.7.1"))
+            {
+                asset = githubRelease.Assets
+                    .FirstOrDefault(a => a.Name.Contains("471") || a.Name.Contains("471"));
+            }
+            else if (frameworkAttribute.FrameworkName.EndsWith("4.7.2"))
+            {
+                asset = githubRelease.Assets
+                    .FirstOrDefault(a => a.Name.Contains("472") || a.Name.Contains("472"));
+            }
+            else if (frameworkAttribute.FrameworkName.EndsWith("4.8"))
+            {
+                asset = githubRelease.Assets
+                    .FirstOrDefault(a => a.Name.Contains("48") || a.Name.Contains("48"));
+            }
+            else if (frameworkAttribute.FrameworkName.EndsWith("3.1"))
+            {
+                asset = githubRelease.Assets
+                    .FirstOrDefault(a => a.Name.Contains("3.1") || a.Name.Contains("netcoreapp3.1"));
+            }
+
+            return asset;
+        }
+
 
     }
 }
