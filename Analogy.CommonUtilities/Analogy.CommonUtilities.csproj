@@ -12,13 +12,13 @@
 		<ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
 		<Authors>Lior Banai</Authors>
 		<Company>Analogy.LogViewer</Company>
-		<Copyright>Lior Banai © 2020</Copyright>
+		<Copyright>Lior Banai © 2020-2021</Copyright>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/Analogy-LogViewer/Analogy.CommonUtilities</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/Analogy-LogViewer/Analogy.CommonUtilities</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<PackageIcon>icon.png</PackageIcon>
-		<Version>1.4.6.1</Version>
+		<Version>1.4.6.2</Version>
 		<Nullable>enable</Nullable>
 		<LangVersion>8.0</LangVersion>
 	</PropertyGroup>
@@ -30,7 +30,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Analogy.LogViewer.Interfaces" Version="2.12.1" />
+		<PackageReference Include="Analogy.LogViewer.Interfaces" Version="2.12.5" />
 		<PackageReference Include="Microsoft.Build.Tasks.Git" Version="1.0.0">
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
