@@ -110,7 +110,11 @@ namespace Analogy.CommonUtilities.Web
                 asset = githubRelease.Assets
                     .FirstOrDefault(a => a.Name.Contains("3.1") || a.Name.Contains("netcoreapp3.1"));
             }
-
+            else if (frameworkAttribute.FrameworkName.EndsWith("v5.0"))
+            {
+                asset = githubRelease.Assets
+                    .FirstOrDefault(a => a.Name.Contains("net5.0"));
+            }
             return asset;
         }
 
