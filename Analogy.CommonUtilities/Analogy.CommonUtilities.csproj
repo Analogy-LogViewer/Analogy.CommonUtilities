@@ -48,9 +48,4 @@
 			<PackagePath></PackagePath>
 		</None>
 	</ItemGroup>
-
-	<ItemGroup>
-		<Folder Include="UI\" />
-	</ItemGroup>
-
 </Project>
