@@ -1,10 +1,10 @@
 ﻿using Analogy.Interfaces;
 using Analogy.Interfaces.DataTypes;
-using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Text.Json;
 using System.Windows.Forms;
 
 namespace Analogy.CommonUtilities.UI
@@ -37,7 +37,7 @@ namespace Analogy.CommonUtilities.UI
                 try
                 {
                     var json = File.ReadAllText(openFileDialog1.FileName);
-                    ParserSettings = JsonConvert.DeserializeObject<LogParserSettings>(json);
+                    ParserSettings = JsonSerializer.Deserialize<LogParserSettings>(json);
                     LoadJsonSettings();
                     MessageBox.Show("File Imported. Save settings if desired", @"Import settings", MessageBoxButtons.OK,
                         MessageBoxIcon.Information);
@@ -70,7 +70,7 @@ namespace Analogy.CommonUtilities.UI
             {
                 try
                 {
-                    File.WriteAllText(saveFileDialog.FileName, JsonConvert.SerializeObject(ParserSettings));
+                    File.WriteAllText(saveFileDialog.FileName, JsonSerializer.Serialize(ParserSettings));
                     MessageBox.Show("File Saved", @"Export settings", MessageBoxButtons.OK,
                         MessageBoxIcon.Information);
 

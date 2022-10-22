@@ -4,8 +4,8 @@ using System.Linq;
 using System.Net;
 using System.Runtime.Versioning;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 
 namespace Analogy.CommonUtilities.Web
 {
@@ -35,7 +35,7 @@ namespace Analogy.CommonUtilities.Web
                 using (var reader = new System.IO.StreamReader(myHttpWebResponse.GetResponseStream()))
                 {
                     string responseText = await reader.ReadToEndAsync();
-                    return (true, JsonConvert.DeserializeObject<T>(responseText));
+                    return (true, JsonSerializer.Deserialize<T>(responseText));
                 }
             }
             catch (WebException e) when (((HttpWebResponse)e.Response).StatusCode == HttpStatusCode.NotModified)
