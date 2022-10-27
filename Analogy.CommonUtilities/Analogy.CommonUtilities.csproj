@@ -18,7 +18,7 @@
 		<RepositoryUrl>https://github.com/Analogy-LogViewer/Analogy.CommonUtilities</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<PackageIcon>icon.png</PackageIcon>
-		<Version>3.4.0</Version>
+		<Version>3.4.1</Version>
 		<Nullable>enable</Nullable>
 		<LangVersion>latest</LangVersion>
 	</PropertyGroup>
@@ -39,7 +39,8 @@
 			<PrivateAssets>all</PrivateAssets>
 			<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 		</PackageReference>
-		<PackageReference Include="System.Text.Json" Version="6.0.6" />
+		<PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+
 	</ItemGroup>
 
 	<ItemGroup>

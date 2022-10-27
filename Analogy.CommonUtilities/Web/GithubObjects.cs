@@ -2,50 +2,51 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Text.Json.Serialization;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace Analogy.CommonUtilities.Web
 {
     public class GithubObjects
     {
         [Serializable]
+        [JsonObject]
         public class GithubReleaseEntry
         {
-            [JsonPropertyName("url")]
+            [JsonProperty("url")]
             public string URL { get; set; }
-            [JsonPropertyName("assets_url")]
+            [JsonProperty("assets_url")]
             public string AssetsUrl { get; set; }
-            [JsonPropertyName("html_url")]
+            [JsonProperty("html_url")]
             public string HtmlUrl { get; set; }
-            [JsonPropertyName("id")]
+            [JsonProperty("id")]
             public string Id { get; set; }
-            [JsonPropertyName("tag_name")]
+            [JsonProperty("tag_name")]
             public string TagName { get; set; }
-            [JsonPropertyName("target_commitish")]
+            [JsonProperty("target_commitish")]
             public string Branch { get; set; }
-            [JsonPropertyName("name")]
+            [JsonProperty("name")]
             public string Title { get; set; }
-            [JsonPropertyName("draft")]
+            [JsonProperty("draft")]
             public bool Draft { get; set; }
 
-            [JsonPropertyName("author")]
+            [JsonProperty("author")]
             public GithubUser Author { get; set; }
 
-            [JsonPropertyName("prerelease")]
+            [JsonProperty("prerelease")]
             public bool PreRelease { get; set; }
 
-            [JsonPropertyName("created_at")]
+            [JsonProperty("created_at")]
             public DateTime Created { get; set; }
-            [JsonPropertyName("published_at")]
+            [JsonProperty("published_at")]
             public DateTime Published { get; set; }
-            [JsonPropertyName("assets")]
+            [JsonProperty("assets")]
             public GithubAsset[] Assets { get; set; }
-            [JsonPropertyName("tarball_url")]
+            [JsonProperty("tarball_url")]
             public string tarball_url { get; set; }
-            [JsonPropertyName("zipball_url")]
+            [JsonProperty("zipball_url")]
             public string zipball_url { get; set; }
-            [JsonPropertyName("body")]
+            [JsonProperty("body")]
             public string Content { get; set; }
 
             public override string ToString()
@@ -54,41 +55,43 @@ namespace Analogy.CommonUtilities.Web
             }
         }
         [Serializable]
+        [JsonObject]
         public class GithubUser
         {
-            [JsonPropertyName("login")]
+            [JsonProperty("login")]
             public string Login { get; set; }
 
-            [JsonPropertyName("id")]
+            [JsonProperty("id")]
             public string Id { get; set; }
 
-            [JsonPropertyName("avatar_url")]
+            [JsonProperty("avatar_url")]
             public string avatarUrl { get; set; }
 
-            [JsonPropertyName("html_url")]
+            [JsonProperty("html_url")]
             public string HtmlUrl { get; set; }
         }
 
         [Serializable]
+        [JsonObject]
         public class GithubAsset
         {
-            [JsonPropertyName("url")]
+            [JsonProperty("url")]
             public string URL { get; set; }
-            [JsonPropertyName("id")]
+            [JsonProperty("id")]
             public string Id { get; set; }
-            [JsonPropertyName("name")]
+            [JsonProperty("name")]
             public string Name { get; set; }
-            [JsonPropertyName("content_type")]
+            [JsonProperty("content_type")]
             public string ContentType { get; set; }
-            [JsonPropertyName("size")]
+            [JsonProperty("size")]
             public long Size { get; set; }
-            [JsonPropertyName("download_count")]
+            [JsonProperty("download_count")]
             public int Downloads { get; set; }
-            [JsonPropertyName("created_at")]
+            [JsonProperty("created_at")]
             public DateTime Created { get; set; }
-            [JsonPropertyName("updated_at")]
+            [JsonProperty("updated_at")]
             public DateTime Updated { get; set; }
-            [JsonPropertyName("browser_download_url")]
+            [JsonProperty("browser_download_url")]
             public string BrowserDownloadUrl { get; set; }
 
             public override string ToString() => $"Asset Name: {Name}, URL: {URL}, Size: {Size}, Downloads: {Downloads}, Created: {Created}";
