@@ -3,6 +3,7 @@ using System.Linq;
 using System.Net;
 using System.Runtime.Versioning;
 using System.Threading.Tasks;
+using Analogy.CommonUtilities.Github;
 using Newtonsoft.Json;
 
 
@@ -55,12 +56,12 @@ namespace Analogy.CommonUtilities.Web
         ///  <param name="optionalGithubToken"></param>
         ///  <param name="lastUpdate"></param>
         ///  <returns></returns>
-        public static async Task<(bool newData, GithubObjects.GithubReleaseEntry? release)> CheckVersion(string repositoryPath, string userAgent, string optionalGithubToken, DateTime lastUpdate)
+        public static async Task<(bool newData, GithubReleaseEntry? release)> CheckVersion(string repositoryPath, string userAgent, string optionalGithubToken, DateTime lastUpdate)
         {
-            var (newData, entries) = await Analogy.CommonUtilities.Web.Utils.GetAsync<GithubObjects.GithubReleaseEntry[]>(repositoryPath + "/releases", userAgent, optionalGithubToken, lastUpdate);
+            var (newData, entries) = await Analogy.CommonUtilities.Web.Utils.GetAsync<GithubReleaseEntry[]>(repositoryPath + "/releases", userAgent, optionalGithubToken, lastUpdate);
             if (entries != null)
             {
-                GithubObjects.GithubReleaseEntry? release = entries.OrderByDescending(r => r.Published).FirstOrDefault();
+                GithubReleaseEntry? release = entries.OrderByDescending(r => r.Published).FirstOrDefault();
                 return (newData, release);
             }
             return (false, null);
@@ -73,22 +74,22 @@ namespace Analogy.CommonUtilities.Web
         ///  <param name="userAgent"></param>
         ///  <param name="optionalGithubToken"></param>
         ///  <returns></returns>
-        public static async Task<(bool newData, GithubObjects.GithubReleaseEntry[] release)> GetAllReleases(string repositoryPath, string userAgent, string optionalGithubToken)
+        public static async Task<(bool newData, GithubReleaseEntry[] release)> GetAllReleases(string repositoryPath, string userAgent, string optionalGithubToken)
         {
             try
             {
-                var (newData, entries) = await Analogy.CommonUtilities.Web.Utils.GetAsync<GithubObjects.GithubReleaseEntry[]>(repositoryPath + "/releases", userAgent, optionalGithubToken, DateTime.MinValue);
+                var (newData, entries) = await Analogy.CommonUtilities.Web.Utils.GetAsync<GithubReleaseEntry[]>(repositoryPath + "/releases", userAgent, optionalGithubToken, DateTime.MinValue);
                 return (newData, entries);
             }
             catch (Exception)
             {
-                return (false, new GithubObjects.GithubReleaseEntry[0]);
+                return (false, new GithubReleaseEntry[0]);
             }
 
         }
-        public static GithubObjects.GithubAsset? GetMatchingAsset(GithubObjects.GithubReleaseEntry githubRelease, TargetFrameworkAttribute frameworkAttribute)
+        public static GithubAsset? GetMatchingAsset(GithubReleaseEntry githubRelease, TargetFrameworkAttribute frameworkAttribute)
         {
-            GithubObjects.GithubAsset? asset = null;
+            GithubAsset? asset = null;
             if (frameworkAttribute.FrameworkName.EndsWith("4.7.1"))
             {
                 asset = githubRelease.Assets
@@ -113,6 +114,21 @@ namespace Analogy.CommonUtilities.Web
             {
                 asset = githubRelease.Assets
                     .FirstOrDefault(a => a.Name.Contains("net5.0"));
+            }
+            else if (frameworkAttribute.FrameworkName.EndsWith("v6.0"))
+            {
+                asset = githubRelease.Assets
+                    .FirstOrDefault(a => a.Name.Contains("net6.0"));
+            }
+            else if (frameworkAttribute.FrameworkName.EndsWith("v7.0"))
+            {
+                asset = githubRelease.Assets
+                    .FirstOrDefault(a => a.Name.Contains("net7.0"));
+            }
+            else if (frameworkAttribute.FrameworkName.EndsWith("v8.0"))
+            {
+                asset = githubRelease.Assets
+                    .FirstOrDefault(a => a.Name.Contains("net8.0"));
             }
             return asset;
         }
