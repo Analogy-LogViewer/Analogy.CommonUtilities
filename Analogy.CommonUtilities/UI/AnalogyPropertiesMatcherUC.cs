@@ -1,7 +1,5 @@
 ﻿using Analogy.Interfaces;
 using Analogy.Interfaces.DataTypes;
-using System;
-using System.Linq;
 using System.Windows.Forms;
 
 namespace Analogy.CommonUtilities.UI

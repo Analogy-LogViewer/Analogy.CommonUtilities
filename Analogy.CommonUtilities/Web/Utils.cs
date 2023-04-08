@@ -1,8 +1,5 @@
-﻿using System;
-using System.Linq;
-using System.Net;
+﻿using System.Net;
 using System.Runtime.Versioning;
-using System.Threading.Tasks;
 using Analogy.CommonUtilities.Github;
 using Newtonsoft.Json;
 
@@ -11,7 +8,7 @@ namespace Analogy.CommonUtilities.Web
 {
    public static class Utils
     {
-        public static async Task<(bool newData, T result)> GetAsync<T>(string uri,string userAgent, string token, DateTime lastModified)
+        public static async Task<(bool newData, T? result)> GetAsync<T>(string uri,string userAgent, string token, DateTime lastModified)
         {
             try
             {
@@ -74,11 +71,11 @@ namespace Analogy.CommonUtilities.Web
         ///  <param name="userAgent"></param>
         ///  <param name="optionalGithubToken"></param>
         ///  <returns></returns>
-        public static async Task<(bool newData, GithubReleaseEntry[] release)> GetAllReleases(string repositoryPath, string userAgent, string optionalGithubToken)
+        public static async Task<(bool newData, GithubReleaseEntry[]? release)> GetAllReleases(string repositoryPath, string userAgent, string optionalGithubToken)
         {
             try
             {
-                var (newData, entries) = await Analogy.CommonUtilities.Web.Utils.GetAsync<GithubReleaseEntry[]>(repositoryPath + "/releases", userAgent, optionalGithubToken, DateTime.MinValue);
+                var (newData, entries) = await Utils.GetAsync<GithubReleaseEntry[]>(repositoryPath + "/releases", userAgent, optionalGithubToken, DateTime.MinValue);
                 return (newData, entries);
             }
             catch (Exception)

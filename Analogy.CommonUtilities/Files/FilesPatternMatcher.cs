@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Analogy.CommonUtilities.Files
+﻿namespace Analogy.CommonUtilities.Files
 {
     public class FilesPatternMatcher
     {
