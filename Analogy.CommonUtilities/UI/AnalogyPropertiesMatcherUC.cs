@@ -38,10 +38,10 @@ namespace Analogy.CommonUtilities.UI
 
         private void UpdateMappings()
         {
-            if (ParserSettings.Maps.ContainsKey(Selection))
+            if (ParserSettings.Maps.TryGetValue(Selection, out List<string>? value))
             {
                 lstbMappedKeys.Items.Clear();
-                lstbMappedKeys.Items.AddRange(ParserSettings.Maps[Selection].ToArray());
+                lstbMappedKeys.Items.AddRange(value.ToArray());
             }
         }
 

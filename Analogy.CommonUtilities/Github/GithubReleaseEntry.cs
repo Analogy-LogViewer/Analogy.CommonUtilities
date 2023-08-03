@@ -36,9 +36,9 @@ namespace Analogy.CommonUtilities.Github
         [JsonProperty("assets")]
         public GithubAsset[] Assets { get; set; }
         [JsonProperty("tarball_url")]
-        public string tarball_url { get; set; }
+        public string TarballUrl { get; set; }
         [JsonProperty("zipball_url")]
-        public string zipball_url { get; set; }
+        public string ZipballUrl { get; set; }
         [JsonProperty("body")]
         public string Content { get; set; }
 
