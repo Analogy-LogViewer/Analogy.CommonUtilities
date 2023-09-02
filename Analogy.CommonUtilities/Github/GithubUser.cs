@@ -4,7 +4,7 @@ namespace Analogy.CommonUtilities.Github
 {
     [Serializable]
     [JsonObject]
-    public class GithubUser
+    public class GitHubUser
     {
         [JsonProperty("login")]
         public string Login { get; set; }

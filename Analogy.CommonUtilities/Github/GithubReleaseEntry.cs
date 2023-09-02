@@ -24,7 +24,7 @@ namespace Analogy.CommonUtilities.Github
         public bool Draft { get; set; }
 
         [JsonProperty("author")]
-        public GithubUser Author { get; set; }
+        public GitHubUser Author { get; set; }
 
         [JsonProperty("prerelease")]
         public bool PreRelease { get; set; }
