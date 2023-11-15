@@ -1,5 +1,5 @@
-﻿using System.Net;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
+using System.Net;
 
 namespace Analogy.CommonUtilities.Github
 {
@@ -10,7 +10,7 @@ namespace Analogy.CommonUtilities.Github
         public static async Task<GitHubRateLimit> GetRateLimit(string? token, string? userAgent)
         {
             var data = await GetAsync<GitHubRateLimit>("https://api.github.com/rate_limit", token, userAgent, DateTime.Now);
-            return data.result;
+            return data.Result;
         }
         public static async Task<List<GitHubRepository>> GetForks(GitHubRepository repo, string? gitHubToken, string? userAgent)
         {
@@ -20,23 +20,20 @@ namespace Analogy.CommonUtilities.Github
         }
         private static async Task GetForks(GitHubRepository repo, string? gitHubToken, string? userAgent, List<GitHubRepository> repos)
         {
-
             List<GitHubRepository> forks = new List<GitHubRepository>();
             int page = 1;
             bool hasMore = true;
             while (hasMore)
             {
                 var forksData = await GetAsync<GitHubRepository[]>(repo.ForksUrl + "?per_page=100&page=" + page, gitHubToken, userAgent, DateTime.MinValue);
-                if (forksData.result != null)
+                if (forksData.Result != null)
                 {
-
-
-                    foreach (var fork in forksData.result)
+                    foreach (var fork in forksData.Result)
                     {
                         forks.Add(fork);
                     }
                 }
-                hasMore = forksData.result is { Length: 100 };
+                hasMore = forksData.Result is { Length: 100 };
 
                 page++;
             }
@@ -50,8 +47,7 @@ namespace Analogy.CommonUtilities.Github
             }
         }
 
-
-        public static async Task<(bool newData, T result)> GetAsync<T>(string uri, string? token, string? userAgent, DateTime lastModified)
+        public static async Task<(bool NewData, T Result)> GetAsync<T>(string uri, string? token, string? userAgent, DateTime lastModified)
         {
             try
             {
@@ -104,8 +100,5 @@ namespace Analogy.CommonUtilities.Github
                 return (false, default);
             }
         }
-
-
-
     }
 }

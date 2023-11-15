@@ -1,8 +1,8 @@
 ﻿using Analogy.Interfaces;
 using Analogy.Interfaces.DataTypes;
+using Newtonsoft.Json;
 using System.IO;
 using System.Windows.Forms;
-using Newtonsoft.Json;
 
 namespace Analogy.CommonUtilities.UI
 {
@@ -38,7 +38,6 @@ namespace Analogy.CommonUtilities.UI
                     LoadJsonSettings();
                     MessageBox.Show("File Imported. Save settings if desired", @"Import settings", MessageBoxButtons.OK,
                         MessageBoxIcon.Information);
-
                 }
                 catch (Exception ex)
                 {
@@ -70,14 +69,12 @@ namespace Analogy.CommonUtilities.UI
                     File.WriteAllText(saveFileDialog.FileName, JsonConvert.SerializeObject(ParserSettings));
                     MessageBox.Show("File Saved", @"Export settings", MessageBoxButtons.OK,
                         MessageBoxIcon.Information);
-
                 }
                 catch (Exception ex)
                 {
                     MessageBox.Show("Error Export: " + ex.Message, @"Error Saving file", MessageBoxButtons.OK,
                         MessageBoxIcon.Error);
                 }
-
             }
         }
 
@@ -118,4 +115,3 @@ namespace Analogy.CommonUtilities.UI
         }
     }
 }
-

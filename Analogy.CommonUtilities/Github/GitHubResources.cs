@@ -1,6 +1,5 @@
 ﻿using Newtonsoft.Json;
 
-
 namespace Analogy.CommonUtilities.Github
 {
     [Serializable]

@@ -25,7 +25,6 @@ namespace Analogy.CommonUtilities.UI
             Selection = (AnalogyLogMessagePropertyName)cbLogProperties.SelectedItem;
             UpdateMappings();
             cbLogProperties.SelectedIndexChanged += this.cbLogProperties_SelectedIndexChanged;
-
         }
 
         private void cbLogProperties_SelectedIndexChanged(object? sender, EventArgs e)
@@ -33,7 +32,6 @@ namespace Analogy.CommonUtilities.UI
             Selection = (AnalogyLogMessagePropertyName)cbLogProperties.SelectedItem;
             lblInfo.Text = $"Log files keys/properties to map to {Selection}:";
             UpdateMappings();
-
         }
 
         private void UpdateMappings()

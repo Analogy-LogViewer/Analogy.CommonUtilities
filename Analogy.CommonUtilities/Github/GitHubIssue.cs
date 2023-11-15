@@ -36,7 +36,6 @@ namespace Analogy.CommonUtilities.Github
         [JsonProperty("pull_request")] public GitHubPullRequest PullRequest { get; set; }
     }
 
-
     public class GitHubPullRequest
     {
         [JsonProperty("url")] public string Url { get; set; }

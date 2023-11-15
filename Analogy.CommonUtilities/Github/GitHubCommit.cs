@@ -53,7 +53,6 @@ public class Verification
     [JsonProperty("payload")] public string Payload { get; set; }
 }
 
-
 public class Parent
 {
     [JsonProperty("sha")] public string Sha { get; set; }

@@ -21,7 +21,6 @@ namespace Analogy.CommonUtilities.Github
         [JsonProperty("body")] public string Body { get; set; }
     }
 
-
     public class GitHubComments
     {
         private GitHubComment[] Comments { get; set; }

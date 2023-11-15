@@ -45,6 +45,5 @@ namespace Analogy.CommonUtilities.Github
         public string Type { get; set; }
         [JsonProperty("site_admin")]
         public bool SiteAdmin { get; set; }
-
     }
 }

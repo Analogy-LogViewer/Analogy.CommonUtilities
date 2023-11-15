@@ -1,14 +1,13 @@
-﻿using System.Net;
-using System.Runtime.Versioning;
-using Analogy.CommonUtilities.Github;
+﻿using Analogy.CommonUtilities.Github;
 using Newtonsoft.Json;
-
+using System.Net;
+using System.Runtime.Versioning;
 
 namespace Analogy.CommonUtilities.Web
 {
-   public static class Utils
+    public static class Utils
     {
-        public static async Task<(bool newData, T? result)> GetAsync<T>(string uri,string userAgent, string token, DateTime lastModified)
+        public static async Task<(bool NewData, T? Result)> GetAsync<T>(string uri, string userAgent, string token, DateTime lastModified)
         {
             try
             {
@@ -45,15 +44,15 @@ namespace Analogy.CommonUtilities.Web
             }
         }
 
-        ///  <summary>
+        /// <summary>
         /// Get latest release info
         ///  </summary>
-        ///  <param name="repositoryPath">url to repository (e.g: "https://api.github.com/repos/Analogy-LogViewer/Analogy.LogViewer")</param>
-        ///  <param name="userAgent"></param>
-        ///  <param name="optionalGithubToken"></param>
-        ///  <param name="lastUpdate"></param>
-        ///  <returns></returns>
-        public static async Task<(bool newData, GithubReleaseEntry? release)> CheckVersion(string repositoryPath, string userAgent, string optionalGithubToken, DateTime lastUpdate)
+        /// <param name="repositoryPath">url to repository (e.g: "https://api.github.com/repos/Analogy-LogViewer/Analogy.LogViewer")</param>
+        /// <param name="userAgent"></param>
+        /// <param name="optionalGithubToken"></param>
+        /// <param name="lastUpdate"></param>
+        /// <returns></returns>
+        public static async Task<(bool NewData, GithubReleaseEntry? Release)> CheckVersion(string repositoryPath, string userAgent, string optionalGithubToken, DateTime lastUpdate)
         {
             var (newData, entries) = await Analogy.CommonUtilities.Web.Utils.GetAsync<GithubReleaseEntry[]>(repositoryPath + "/releases", userAgent, optionalGithubToken, lastUpdate);
             if (entries != null)
@@ -64,14 +63,14 @@ namespace Analogy.CommonUtilities.Web
             return (false, null);
         }
 
-        ///  <summary>
+        /// <summary>
         /// Get latest release info
         ///  </summary>
-        ///  <param name="repositoryPath">url to repository (e.g: "https://api.github.com/repos/Analogy-LogViewer/Analogy.LogViewer")</param>
-        ///  <param name="userAgent"></param>
-        ///  <param name="optionalGithubToken"></param>
-        ///  <returns></returns>
-        public static async Task<(bool newData, GithubReleaseEntry[]? release)> GetAllReleases(string repositoryPath, string userAgent, string optionalGithubToken)
+        /// <param name="repositoryPath">url to repository (e.g: "https://api.github.com/repos/Analogy-LogViewer/Analogy.LogViewer")</param>
+        /// <param name="userAgent"></param>
+        /// <param name="optionalGithubToken"></param>
+        /// <returns></returns>
+        public static async Task<(bool NewData, GithubReleaseEntry[]? Release)> GetAllReleases(string repositoryPath, string userAgent, string optionalGithubToken)
         {
             try
             {
@@ -82,7 +81,6 @@ namespace Analogy.CommonUtilities.Web
             {
                 return (false, new GithubReleaseEntry[0]);
             }
-
         }
         public static GithubAsset? GetMatchingAsset(GithubReleaseEntry githubRelease, TargetFrameworkAttribute frameworkAttribute)
         {
@@ -129,7 +127,5 @@ namespace Analogy.CommonUtilities.Web
             }
             return asset;
         }
-
-
     }
 }

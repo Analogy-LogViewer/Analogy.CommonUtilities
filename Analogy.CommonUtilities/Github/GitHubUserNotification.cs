@@ -2,7 +2,6 @@
 
 namespace Analogy.CommonUtilities.Github
 {
-
     [Serializable]
     [JsonObject]
     public class GitHubUserNotification
@@ -22,7 +21,6 @@ namespace Analogy.CommonUtilities.Github
         [JsonProperty("url")] public string URL { get; set; }
         [JsonProperty("type")] public string Type { get; set; }
         [JsonProperty("latest_comment_url")] public string LatestCommentUrl { get; set; }
-
     }
 
     [Serializable]
