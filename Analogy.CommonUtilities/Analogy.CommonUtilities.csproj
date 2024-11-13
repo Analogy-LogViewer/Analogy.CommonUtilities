@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<OutputType>Library</OutputType>
-		<TargetFrameworks>net8.0-windows;net6.0-windows;net48</TargetFrameworks>
+		<TargetFrameworks>net9.0-windows;net8.0-windows;net48</TargetFrameworks>
 		<UseWindowsForms>true</UseWindowsForms>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<PublishRepositoryUrl>true</PublishRepositoryUrl>
@@ -12,13 +12,13 @@
 		<ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
 		<Authors>Lior Banai</Authors>
 		<Company>Analogy.LogViewer</Company>
-		<Copyright>Lior Banai © 2020-2024</Copyright>
+		<Copyright>Lior Banai 2020-2025</Copyright>
 		<PackageLicenseExpression>MIT</PackageLicenseExpression>
 		<PackageProjectUrl>https://github.com/Analogy-LogViewer/Analogy.CommonUtilities</PackageProjectUrl>
 		<RepositoryUrl>https://github.com/Analogy-LogViewer/Analogy.CommonUtilities</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<PackageIcon>icon.png</PackageIcon>
-		<VersionPrefix>7.0.0.0</VersionPrefix>
+		<VersionPrefix>7.1.0</VersionPrefix>
 		<VersionSuffix></VersionSuffix>
 		<Nullable>enable</Nullable>
 		<LangVersion>latest</LangVersion>
@@ -31,7 +31,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Analogy.LogViewer.Interfaces" Version="7.0.0.1" />
+		<PackageReference Include="Analogy.LogViewer.Interfaces" Version="7.1.0" />
 		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
 	</ItemGroup>
 	<ItemGroup>
@@ -39,5 +39,8 @@
 			<Pack>True</Pack>
 			<PackagePath></PackagePath>
 		</None>
+	</ItemGroup>
+	<ItemGroup>
+	  <PackageReference Update="Microsoft.Bcl.HashCode" Version="6.0.0" />
 	</ItemGroup>
 </Project>
