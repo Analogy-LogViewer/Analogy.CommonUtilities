@@ -1,5 +1,4 @@
 ﻿using Analogy.CommonUtilities.Github;
-using Newtonsoft.Json;
 using System.Net;
 using System.Runtime.Versioning;
 
@@ -31,7 +30,7 @@ namespace Analogy.CommonUtilities.Web
                 using (var reader = new System.IO.StreamReader(myHttpWebResponse.GetResponseStream()))
                 {
                     string responseText = await reader.ReadToEndAsync();
-                    return (true, JsonConvert.DeserializeObject<T>(responseText));
+                    return (true, System.Text.Json.JsonSerializer.Deserialize<T>(responseText));
                 }
             }
             catch (WebException e) when (((HttpWebResponse)e.Response).StatusCode == HttpStatusCode.NotModified)

@@ -1,24 +1,23 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace Analogy.CommonUtilities.Github
 {
     [Serializable]
-    [JsonObject]
     public class GitHubRateLimit
     {
-        [JsonProperty("resources")] public GitHubResources Resources { get; set; }
-        [JsonProperty("rate")] public GitHubRate Rate { get; set; }
+        [JsonPropertyName("resources")] public GitHubResources Resources { get; set; }
+        [JsonPropertyName("rate")] public GitHubRate Rate { get; set; }
     }
 
     public class GitHubRate
     {
-        [JsonProperty("limit")]
+        [JsonPropertyName("limit")]
         public int Limit { get; set; }
-        [JsonProperty("used")]
+        [JsonPropertyName("used")]
         public int Used { get; set; }
-        [JsonProperty("remaining")]
+        [JsonPropertyName("remaining")]
         public int Remaining { get; set; }
-        [JsonProperty("reset")]
+        [JsonPropertyName("reset")]
         public int Reset { get; set; }
     }
 }

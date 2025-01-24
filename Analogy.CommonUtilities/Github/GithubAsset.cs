@@ -1,28 +1,28 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace Analogy.CommonUtilities.Github
 {
     [Serializable]
-    [JsonObject]
     public class GithubAsset
     {
-        [JsonProperty("url")]
+        [JsonPropertyName("url")]
         public string URL { get; set; }
-        [JsonProperty("id")]
+        [JsonPropertyName("id")]
         public string Id { get; set; }
-        [JsonProperty("name")]
+        [JsonPropertyName("name")]
         public string Name { get; set; }
-        [JsonProperty("content_type")]
+        [JsonPropertyName("content_type")]
         public string ContentType { get; set; }
-        [JsonProperty("size")]
+        [JsonPropertyName("size")]
         public long Size { get; set; }
-        [JsonProperty("download_count")]
+        [JsonPropertyName("download_count")]
         public int Downloads { get; set; }
-        [JsonProperty("created_at")]
+        [JsonPropertyName("created_at")]
         public DateTime Created { get; set; }
-        [JsonProperty("updated_at")]
+        [JsonPropertyName("updated_at")]
         public DateTime Updated { get; set; }
-        [JsonProperty("browser_download_url")]
+        [JsonPropertyName("browser_download_url")]
         public string BrowserDownloadUrl { get; set; }
 
         public override string ToString() => $"Asset Name: {Name}, URL: {URL}, Size: {Size}, Downloads: {Downloads}, Created: {Created}";
