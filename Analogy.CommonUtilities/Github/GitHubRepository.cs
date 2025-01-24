@@ -1,33 +1,33 @@
-﻿using Newtonsoft.Json;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
+using System.Text.Json.Serialization;
+
 namespace Analogy.CommonUtilities.Github
 {
     [Serializable]
-    [JsonObject]
     public class GitHubRepository
     {
-        [JsonProperty("id")] public int Id { get; set; }
-        [JsonProperty("node_id")] public string NodeId { get; set; }
-        [JsonProperty("name")] public string Name { get; set; }
-        [JsonProperty("full_name")] public string FullName { get; set; }
-        [JsonProperty("private")] public bool Private { get; set; }
-        [JsonProperty("owner")] public GitHubUser Owner { get; set; }
+        [JsonPropertyName("id")] public int Id { get; set; }
+        [JsonPropertyName("node_id")] public string NodeId { get; set; }
+        [JsonPropertyName("name")] public string Name { get; set; }
+        [JsonPropertyName("full_name")] public string FullName { get; set; }
+        [JsonPropertyName("private")] public bool Private { get; set; }
+        [JsonPropertyName("owner")] public GitHubUser Owner { get; set; }
 
-        [JsonProperty("fork")] public bool Fork { get; set; }
+        [JsonPropertyName("fork")] public bool Fork { get; set; }
 
-        [JsonProperty("description")] public string Description { get; set; }
-        [JsonProperty("stargazers_count")] public int Stargazers { get; set; }
-        [JsonProperty("watchers_count")] public int Watchers { get; set; }
-        [JsonProperty("subscribers_count")] public int Subscribers { get; set; }
-        [JsonProperty("forks_count")] public int Forks { get; set; }
-        [JsonProperty("forks_url")] public string ForksUrl { get; set; }
-        [JsonProperty("url")] public string ApiUrl { get; set; }
-        [JsonProperty("html_url")] public string HtmlUrl { get; set; }
-        [JsonProperty("commits_url")] public string ApiCommitsUrl { get; set; }
+        [JsonPropertyName("description")] public string Description { get; set; }
+        [JsonPropertyName("stargazers_count")] public int Stargazers { get; set; }
+        [JsonPropertyName("watchers_count")] public int Watchers { get; set; }
+        [JsonPropertyName("subscribers_count")] public int Subscribers { get; set; }
+        [JsonPropertyName("forks_count")] public int Forks { get; set; }
+        [JsonPropertyName("forks_url")] public string ForksUrl { get; set; }
+        [JsonPropertyName("url")] public string ApiUrl { get; set; }
+        [JsonPropertyName("html_url")] public string HtmlUrl { get; set; }
+        [JsonPropertyName("commits_url")] public string ApiCommitsUrl { get; set; }
 
-        [JsonProperty("open_issues_count")] public int OpenIssues { get; set; }
-        [JsonProperty("updated_at")] public DateTime UpdateTime { get; set; }
-        [JsonProperty("pushed_at")] public DateTime PushTime { get; set; }
+        [JsonPropertyName("open_issues_count")] public int OpenIssues { get; set; }
+        [JsonPropertyName("updated_at")] public DateTime UpdateTime { get; set; }
+        [JsonPropertyName("pushed_at")] public DateTime PushTime { get; set; }
 
         public override string ToString()
         {

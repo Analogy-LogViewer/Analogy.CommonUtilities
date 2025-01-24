@@ -1,15 +1,12 @@
-<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
+﻿<Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
 	<PropertyGroup>
 		<OutputType>Library</OutputType>
 		<TargetFrameworks>net9.0-windows;net8.0-windows;net48</TargetFrameworks>
+		<VersionPrefix>8.0.0.0</VersionPrefix>
+		<VersionSuffix>a1</VersionSuffix>
 		<UseWindowsForms>true</UseWindowsForms>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
-		<PublishRepositoryUrl>true</PublishRepositoryUrl>
-		<IncludeSymbols>true</IncludeSymbols>
-		<SymbolPackageFormat>snupkg</SymbolPackageFormat>
-		<EmbedUntrackedSources>true</EmbedUntrackedSources>
-		<ContinuousIntegrationBuild>true</ContinuousIntegrationBuild>
 		<Authors>Lior Banai</Authors>
 		<Company>Analogy.LogViewer</Company>
 		<Copyright>Lior Banai 2020-2025</Copyright>
@@ -18,8 +15,6 @@
 		<RepositoryUrl>https://github.com/Analogy-LogViewer/Analogy.CommonUtilities</RepositoryUrl>
 		<RepositoryType>git</RepositoryType>
 		<PackageIcon>icon.png</PackageIcon>
-		<VersionPrefix>7.2.0</VersionPrefix>
-		<VersionSuffix></VersionSuffix>
 		<Nullable>enable</Nullable>
 		<LangVersion>latest</LangVersion>
 	</PropertyGroup>
@@ -31,8 +26,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Analogy.LogViewer.Interfaces" Version="7.2.0" />
-		<PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+		<PackageReference Include="Analogy.LogViewer.Interfaces" Version="8.0.0-a2" />
+		<PackageReference Include="System.Text.Json" Version="9.0.1" />
 	</ItemGroup>
 	<ItemGroup>
 		<None Include="..\Assets\icon.png">

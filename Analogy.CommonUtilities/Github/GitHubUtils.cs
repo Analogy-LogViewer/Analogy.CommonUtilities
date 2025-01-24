@@ -1,5 +1,4 @@
-﻿using Newtonsoft.Json;
-using System.Net;
+﻿using System.Net;
 
 namespace Analogy.CommonUtilities.Github
 {
@@ -71,7 +70,7 @@ namespace Analogy.CommonUtilities.Github
                 using (var reader = new System.IO.StreamReader(myHttpWebResponse.GetResponseStream()))
                 {
                     string responseText = await reader.ReadToEndAsync();
-                    return (true, JsonConvert.DeserializeObject<T>(responseText));
+                    return (true, System.Text.Json.JsonSerializer.Deserialize<T>(responseText));
                 }
             }
             catch (WebException e) when (e.Status == WebExceptionStatus.NameResolutionFailure)

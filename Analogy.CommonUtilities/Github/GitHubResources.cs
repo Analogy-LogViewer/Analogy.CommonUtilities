@@ -1,14 +1,13 @@
-﻿using Newtonsoft.Json;
+﻿using System.Text.Json.Serialization;
 
 namespace Analogy.CommonUtilities.Github
 {
     [Serializable]
-    [JsonObject]
     public class GitHubResources
     {
-        [JsonProperty("core")] public GitHubRate Core { get; set; }
-        [JsonProperty("graphql")] public GitHubRate Graphql { get; set; }
-        [JsonProperty("integration_manifest")] public GitHubRate IntegrationManifest { get; set; }
-        [JsonProperty("search")] public GitHubRate Search { get; set; }
+        [JsonPropertyName("core")] public GitHubRate Core { get; set; }
+        [JsonPropertyName("graphql")] public GitHubRate Graphql { get; set; }
+        [JsonPropertyName("integration_manifest")] public GitHubRate IntegrationManifest { get; set; }
+        [JsonPropertyName("search")] public GitHubRate Search { get; set; }
     }
 }
