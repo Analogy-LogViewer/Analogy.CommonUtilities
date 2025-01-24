@@ -17,6 +17,7 @@
 		<PackageIcon>icon.png</PackageIcon>
 		<Nullable>enable</Nullable>
 		<LangVersion>latest</LangVersion>
+		<NeutralLanguage>en-US</NeutralLanguage>
 	</PropertyGroup>
 
 	<ItemGroup>
