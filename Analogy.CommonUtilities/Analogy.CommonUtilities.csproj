@@ -4,7 +4,7 @@
 		<OutputType>Library</OutputType>
 		<TargetFrameworks>net9.0-windows;net8.0-windows;net48</TargetFrameworks>
 		<VersionPrefix>8.0.0.0</VersionPrefix>
-		<VersionSuffix>a1</VersionSuffix>
+		<VersionSuffix></VersionSuffix>
 		<UseWindowsForms>true</UseWindowsForms>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
 		<Authors>Lior Banai</Authors>
@@ -27,7 +27,7 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Analogy.LogViewer.Interfaces" Version="8.0.0-a2" />
+		<PackageReference Include="Analogy.LogViewer.Interfaces" Version="8.0.0" />
 		<PackageReference Include="System.Text.Json" Version="9.0.1" />
 	</ItemGroup>
 	<ItemGroup>
@@ -35,8 +35,5 @@
 			<Pack>True</Pack>
 			<PackagePath></PackagePath>
 		</None>
-	</ItemGroup>
-	<ItemGroup>
-	  <PackageReference Update="Microsoft.Bcl.HashCode" Version="6.0.0" />
 	</ItemGroup>
 </Project>
