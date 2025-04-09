@@ -3,7 +3,7 @@
 	<PropertyGroup>
 		<OutputType>Library</OutputType>
 		<TargetFrameworks>net9.0-windows;net8.0-windows;net48</TargetFrameworks>
-		<VersionPrefix>8.0.0.0</VersionPrefix>
+		<VersionPrefix>8.1.0</VersionPrefix>
 		<VersionSuffix></VersionSuffix>
 		<UseWindowsForms>true</UseWindowsForms>
 		<GeneratePackageOnBuild>true</GeneratePackageOnBuild>
@@ -27,8 +27,8 @@
 	</ItemGroup>
 
 	<ItemGroup>
-		<PackageReference Include="Analogy.LogViewer.Interfaces" Version="8.0.0" />
-		<PackageReference Include="System.Text.Json" Version="9.0.1" />
+		<PackageReference Include="Analogy.LogViewer.Interfaces" Version="8.1.0" />
+		<PackageReference Include="System.Text.Json" Version="9.0.4" />
 	</ItemGroup>
 	<ItemGroup>
 		<None Include="..\Assets\icon.png">
