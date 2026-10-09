@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path=".editorconfig" />
+    <File Path=".github/dependabot.yml" />
+    <File Path=".github/workflows/dotnet-core-desktop.yml" />
+    <File Path="Directory.Build.props" />
+    <File Path="Directory.Packages.props" />
+  </Folder>
+  <Project Path="Analogy.CommonUtilities.UnitTests/Analogy.CommonUtilities.UnitTests.csproj" />
+  <Project Path="Analogy.CommonUtilities/Analogy.CommonUtilities.csproj" />
+</Solution>
