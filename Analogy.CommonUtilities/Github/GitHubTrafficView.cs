@@ -26,14 +26,14 @@ namespace Analogy.CommonUtilities.Github
     public class GitHubTrafficClones
     {
         [JsonPropertyName("count")] public int Total { get; set; }
-        [JsonPropertyName("Uniques")] public int uniques { get; set; }
+        [JsonPropertyName("uniques")] public int Uniques { get; set; }
         [JsonPropertyName("clones")] public GitHubClone[] Clones { get; set; }
     }
 
     public class GitHubClone
     {
-        public DateTime timestamp { get; set; }
-        public int count { get; set; }
-        public int uniques { get; set; }
+        [JsonPropertyName("timestamp")] public DateTime Timestamp { get; set; }
+        [JsonPropertyName("count")] public int Count { get; set; }
+        [JsonPropertyName("uniques")] public int Uniques { get; set; }
     }
 }

@@ -1,12 +1,13 @@
 ﻿using Analogy.CommonUtilities.Github;
 using System.Net;
 using System.Runtime.Versioning;
+using System.Text.Json.Serialization.Metadata;
 
 namespace Analogy.CommonUtilities.Web
 {
     public static class Utils
     {
-        public static async Task<(bool NewData, T? Result)> GetAsync<T>(string uri, string userAgent, string token, DateTime lastModified)
+        public static async Task<(bool NewData, T? Result)> GetAsync<T>(JsonTypeInfo<T> typeInfo, string uri, string userAgent, string token, DateTime lastModified)
         {
             try
             {
@@ -27,11 +28,9 @@ namespace Analogy.CommonUtilities.Web
                     return (false, default)!;
                 }
 
-                using (var reader = new System.IO.StreamReader(myHttpWebResponse.GetResponseStream()))
-                {
-                    string responseText = await reader.ReadToEndAsync();
-                    return (true, System.Text.Json.JsonSerializer.Deserialize<T>(responseText));
-                }
+                using var reader = new System.IO.StreamReader(myHttpWebResponse.GetResponseStream());
+                string responseText = await reader.ReadToEndAsync();
+                return (true, System.Text.Json.JsonSerializer.Deserialize<T>(responseText, typeInfo));
             }
             catch (WebException e) when (((HttpWebResponse)e.Response).StatusCode == HttpStatusCode.NotModified)
             {
@@ -53,7 +52,7 @@ namespace Analogy.CommonUtilities.Web
         /// <returns></returns>
         public static async Task<(bool NewData, GithubReleaseEntry? Release)> CheckVersion(string repositoryPath, string userAgent, string optionalGithubToken, DateTime lastUpdate)
         {
-            var (newData, entries) = await Analogy.CommonUtilities.Web.Utils.GetAsync<GithubReleaseEntry[]>(repositoryPath + "/releases", userAgent, optionalGithubToken, lastUpdate);
+            var (newData, entries) = await Analogy.CommonUtilities.Web.Utils.GetAsync<GithubReleaseEntry[]>(GithubJsonContext.Default.GithubReleaseEntryArray, repositoryPath + "/releases", userAgent, optionalGithubToken, lastUpdate);
             if (entries != null)
             {
                 GithubReleaseEntry? release = entries.OrderByDescending(r => r.Published).FirstOrDefault();
@@ -73,7 +72,7 @@ namespace Analogy.CommonUtilities.Web
         {
             try
             {
-                var (newData, entries) = await Utils.GetAsync<GithubReleaseEntry[]>(repositoryPath + "/releases", userAgent, optionalGithubToken, DateTime.MinValue);
+                var (newData, entries) = await Utils.GetAsync<GithubReleaseEntry[]>(GithubJsonContext.Default.GithubReleaseEntryArray, repositoryPath + "/releases", userAgent, optionalGithubToken, DateTime.MinValue);
                 return (newData, entries);
             }
             catch (Exception)

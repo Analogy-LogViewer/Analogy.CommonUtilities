@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using System.Text.Json.Serialization.Metadata;
 
 namespace Analogy.CommonUtilities.Github
 {
@@ -8,7 +9,7 @@ namespace Analogy.CommonUtilities.Github
 
         public static async Task<GitHubRateLimit> GetRateLimit(string? token, string? userAgent)
         {
-            var data = await GetAsync<GitHubRateLimit>("https://api.github.com/rate_limit", token, userAgent, DateTime.Now);
+            var data = await GetAsync<GitHubRateLimit>(GithubJsonContext.Default.GitHubRateLimit, "https://api.github.com/rate_limit", token, userAgent, DateTime.Now);
             return data.Result;
         }
         public static async Task<List<GitHubRepository>> GetForks(GitHubRepository repo, string? gitHubToken, string? userAgent)
@@ -24,7 +25,7 @@ namespace Analogy.CommonUtilities.Github
             bool hasMore = true;
             while (hasMore)
             {
-                var forksData = await GetAsync<GitHubRepository[]>(repo.ForksUrl + "?per_page=100&page=" + page, gitHubToken, userAgent, DateTime.MinValue);
+                var forksData = await GetAsync<GitHubRepository[]>(GithubJsonContext.Default.GitHubRepositoryArray, repo.ForksUrl + "?per_page=100&page=" + page, gitHubToken, userAgent, DateTime.MinValue);
                 if (forksData.Result != null)
                 {
                     foreach (var fork in forksData.Result)
@@ -46,7 +47,7 @@ namespace Analogy.CommonUtilities.Github
             }
         }
 
-        public static async Task<(bool NewData, T Result)> GetAsync<T>(string uri, string? token, string? userAgent, DateTime lastModified)
+        public static async Task<(bool NewData, T Result)> GetAsync<T>(JsonTypeInfo<T> typeInfo, string uri, string? token, string? userAgent, DateTime lastModified)
         {
             try
             {
@@ -67,11 +68,9 @@ namespace Analogy.CommonUtilities.Github
                     return (false, default);
                 }
 
-                using (var reader = new System.IO.StreamReader(myHttpWebResponse.GetResponseStream()))
-                {
-                    string responseText = await reader.ReadToEndAsync();
-                    return (true, System.Text.Json.JsonSerializer.Deserialize<T>(responseText));
-                }
+                using var reader = new System.IO.StreamReader(myHttpWebResponse.GetResponseStream());
+                string responseText = await reader.ReadToEndAsync();
+                return (true, System.Text.Json.JsonSerializer.Deserialize<T>(responseText, typeInfo));
             }
             catch (WebException e) when (e.Status == WebExceptionStatus.NameResolutionFailure)
             {
